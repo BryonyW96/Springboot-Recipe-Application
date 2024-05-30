@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" href="stylesheet.css">
+</link>
+<script src="index.js"></script>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Application</title>
+</head>
+
+<body>
+
+    <h1>Recipe Application prototype</h1>
+    <div id="add-recipe-container">
+        <h2>Add Recipe</h2>
+        <label>Name of Recipe: </label>
+        <input type="text" id="recipeName" name="recipeName">
+        <button id="addRecipeButton" onclick="getRecipeName()">Add</button><br><br>
+        <label>Ingredients: </label>
+        <input type="text" id="ingredients" name="ingredients">
+        <button id="AddIngredientButton" onclick="getIngredients()">Add</button><br><br>
+    </div>
+
+
+    <div id="created-recipe-container">
+        <h3 id="createdRecipeName"></h3>
+    </div>
+
+
+
+
+</body>
+
+</html>
