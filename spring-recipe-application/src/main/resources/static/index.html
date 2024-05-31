@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-<link rel="stylesheet" href="stylesheet.css">
-</link>
-<script src="index.js"></script>
+<link rel="stylesheet" href="stylesheet.css"></link>
+<!-- <script src="index.js"></script> -->
 
 <head>
     <meta charset="UTF-8">
@@ -28,9 +27,59 @@
         <h3 id="createdRecipeName"></h3>
     </div>
 
+    <button onclick="sendRequest()">submit</button>
+
 
 
 
 </body>
+
+<script>
+
+
+//function to create div content for created recipe
+function getRecipeName() {
+    const recipeName = document.getElementById("recipeName").value;
+    const recipeHeader = document.getElementById("createdRecipeName");
+    recipeHeader.innerHTML = recipeName;
+}
+
+function getIngredients() {
+
+    const ingredient = document.getElementById("ingredients").value;
+
+    const createdRecipeDiv = document.getElementById("created-recipe-container");
+
+    var ingredientList = document.createElement("ul");
+    ingredientList.id = "ingredientList";
+
+    var listItem = document.createElement("li");
+    listItem.innerHTML = ingredient;
+
+    ingredientList.appendChild(listItem);
+    createdRecipeDiv.appendChild(ingredientList);
+}
+
+
+//async function to send user recipe to db and store
+
+    async function request(name) {
+        const response = await fetch("/get?name=" + name,  {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+            });
+
+            const result = await response.json();
+    }
+
+    function sendRequest() {
+        var recipe = document.getElementById("createdRecipeName").innerHTML;
+        console.log(recipe)
+        request(recipe); 
+    }
+
+</script>
 
 </html>

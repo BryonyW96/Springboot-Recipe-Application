@@ -1,9 +1,20 @@
-package bryony.applications.POGOS;
+package bryony.applications.spring_recipe_application.POGOS;
 
 import java.util.Arrays;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "recipes")
 public class Recipe {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
     private String name; 
     private String[] ingredients;
 
@@ -13,6 +24,10 @@ public class Recipe {
     public Recipe(String name, String[] ingredients) {
         this.name = name;
         this.ingredients = ingredients;
+    }
+
+    public Long getId(){
+        return id; 
     }
     
     public String getName() {

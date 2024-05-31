@@ -1,8 +1,7 @@
-package bryony.applications.Service;
+package bryony.applications.spring_recipe_application.Service;
 
 import java.sql.Array;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,13 +9,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import bryony.applications.POGOS.Recipe;
+import bryony.applications.spring_recipe_application.POGOS.Recipe;
 
 public class RecipeDatabase {
 
-    private final String USERNAME = "postgres";
-    private final String PASSWORD = "010196";
-    private final String JDBC_URL = "jdbc:postgresql://localhost:5432/recipes";
     private final String INSERT_STATEMENT = "INSERT INTO recipes (name, ingredients) VALUES (LOWER(?), ?);";
     private final String SELECT_ALL_STATEMENT = "SELECT * FROM recipes;";
     private final String DELETE_STATEMENT = "DELETE FROM recipes WHERE name=LOWER(?)";
@@ -26,10 +22,10 @@ public class RecipeDatabase {
     }
 
     // CONNECT TO DB
-    public Connection connectDB() throws SQLException, ClassNotFoundException {
-        Class.forName("org.postgresql.Driver");
-        return DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD);
-    }
+    // public Connection connectDB() throws SQLException, ClassNotFoundException {
+    //     Class.forName("org.postgresql.Driver");
+    //     return DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD);
+    // }
 
     // RETURNS ALL RECIPES FROM TABLE
     public List<Recipe> getAllRecipes(Connection connection) {
@@ -123,10 +119,4 @@ public class RecipeDatabase {
 
     }
 
-    public static void main(String[] args) throws SQLException, ClassNotFoundException {
-        RecipeDatabase db = new RecipeDatabase();
-        Connection connection = db.connectDB();
-
-        db.getRecipe(connection, "smoothie");
-    }
 }
