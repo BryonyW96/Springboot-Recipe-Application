@@ -1,3 +1,19 @@
+body {
+    background-color: rgb(228, 198, 242);
+    font-family: "Dosis", sans-serif;
+    font-optical-sizing: auto;
+    color: rgb(110, 119, 120);
+}
+
+.buttons {
+    font-family: "Dosis", sans-serif;
+}
+
 #created-recipe-container {
     text-transform: capitalize;
 }
+
+
+
+
+

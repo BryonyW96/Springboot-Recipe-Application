@@ -1,12 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-<link rel="stylesheet" href="stylesheet.css"></link>
-<!-- <script src="index.js"></script> -->
+<link rel="stylesheet" href="stylesheet.css">
+</link>
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recipe Application</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@200..800&display=swap" rel="stylesheet">
+
 </head>
 
 <body>
@@ -16,68 +21,90 @@
         <h2>Add Recipe</h2>
         <label>Name of Recipe: </label>
         <input type="text" id="recipeName" name="recipeName">
-        <button id="addRecipeButton" onclick="getRecipeName()">Add</button><br><br>
+        <button class="buttons" id="addRecipeButton" onclick="getRecipeName()">Add</button><br><br>
         <label>Ingredients: </label>
         <input type="text" id="ingredients" name="ingredients">
-        <button id="AddIngredientButton" onclick="getIngredients()">Add</button><br><br>
+        <button class="buttons" id="AddIngredientButton" onclick="displayIngredients()">Add</button><br><br>
     </div>
 
 
     <div id="created-recipe-container">
         <h3 id="createdRecipeName"></h3>
+        <ul id="ingredientList"></ul>
     </div>
 
-    <button onclick="sendRequest()">submit</button>
-
-
-
+    <button class="buttons" onclick="sendRequest()">submit</button>
+    <button class="buttons" onclick="getAllRecipesRequest()">Get All Recipes</button>
 
 </body>
 
 <script>
 
 
-//function to create div content for created recipe
-function getRecipeName() {
-    const recipeName = document.getElementById("recipeName").value;
-    const recipeHeader = document.getElementById("createdRecipeName");
-    recipeHeader.innerHTML = recipeName;
-}
+    //function to create div content for created recipe
+    function getRecipeName() {
+        const recipeName = document.getElementById("recipeName").value;
+        const recipeHeader = document.getElementById("createdRecipeName");
+        recipeHeader.innerHTML = recipeName;
+    }
 
-function getIngredients() {
+    function displayIngredients() {
 
-    const ingredient = document.getElementById("ingredients").value;
+        const ingredient = document.getElementById("ingredients").value;
 
-    const createdRecipeDiv = document.getElementById("created-recipe-container");
+        const createdRecipeDiv = document.getElementById("created-recipe-container");
 
-    var ingredientList = document.createElement("ul");
-    ingredientList.id = "ingredientList";
+        const ingredientList = document.getElementById("ingredientList")
 
-    var listItem = document.createElement("li");
-    listItem.innerHTML = ingredient;
+        var listItem = document.createElement("li");
+        listItem.innerHTML = ingredient;
 
-    ingredientList.appendChild(listItem);
-    createdRecipeDiv.appendChild(ingredientList);
-}
+        ingredientList.appendChild(listItem);
+        createdRecipeDiv.appendChild(ingredientList);
+    }
 
 
-//async function to send user recipe to db and store
+    //async function to send user recipe to db and store
 
-    async function request(name) {
-        const response = await fetch("/get?name=" + name,  {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-            });
+    async function apiRequest(request) {
+        const response = await fetch("/saveRecipe", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: request,
+        });
 
-            const result = await response.json();
     }
 
     function sendRequest() {
-        var recipe = document.getElementById("createdRecipeName").innerHTML;
-        console.log(recipe)
-        request(recipe); 
+
+        var name = document.getElementById("createdRecipeName").innerHTML;
+
+        const ingredientListElems = document.getElementById("ingredientList").childNodes;
+        var ingredients = [];
+
+        for (i = 0; i < ingredientListElems.length; i++) {
+            ingredients.push(ingredientListElems[i].innerHTML.toLowerCase())
+        }
+
+        var request = {
+            "name": name,
+            "ingredients": ingredients
+        };
+
+        apiRequest(JSON.stringify(request));
+    }
+
+    //async function to return all recipes
+
+    async function getAllRecipesRequest() {
+        const response = await fetch("/getAllRecipes", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
     }
 
 </script>
