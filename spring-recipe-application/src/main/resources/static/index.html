@@ -20,13 +20,16 @@
     <div id="add-recipe-container">
         <h2>Add Recipe</h2>
         <label>Name of Recipe: </label>
-        <input type="text" id="recipeName" name="recipeName">
+        <input type="text" id="recipeName" onfocus="this.value=''" name="recipeName">
         <button class="buttons" id="addRecipeButton" onclick="getRecipeName()">Add</button><br><br>
         <label>Ingredients: </label>
         <input type="text" id="ingredients" name="ingredients">
         <button class="buttons" id="AddIngredientButton" onclick="displayIngredients()">Add</button><br><br>
         <button class="buttons" onclick="sendRequest()">Save</button>
+        <button class="buttons" onclick="clearRecipe()">Clear</button>
     </div>
+
+  
 
 
     <div id="created-recipe-container">
@@ -34,7 +37,7 @@
         <ul id="ingredientList"></ul>
     </div>
 
-  
+  <br>
     
 
     <div class="search-bar" id="recipe-search-container">
@@ -51,16 +54,16 @@
 
     //function to create div content for created recipe
     function getRecipeName() {
-        const recipeName = document.getElementById("recipeName").value;
+        const inputBar = document.getElementById("recipeName");
         const recipeHeader = document.getElementById("createdRecipeName");
-        recipeHeader.innerHTML = recipeName;
+        recipeHeader.innerHTML = inputBar.value;
     }
 
     function displayIngredients() {
 
         const ingredient = document.getElementById("ingredients").value;
 
-        const createdRecipeDiv = document.getElementById("created-recipe-container");
+        const recipeDiv = document.getElementById("created-recipe-container");
 
         const ingredientList = document.getElementById("ingredientList")
 
@@ -68,9 +71,16 @@
         listItem.innerHTML = ingredient;
 
         ingredientList.appendChild(listItem);
-        createdRecipeDiv.appendChild(ingredientList);
+        recipeDiv.appendChild(ingredientList);
     }
 
+    function clearRecipe() {
+        const recipeName = document.getElementById("createdRecipeName"); 
+        const ingredientList = document.getElementById("ingredientList"); 
+
+        recipeName.remove();
+        ingredientList.remove();
+    }
 
     //async function to send user recipe to db and store
 
@@ -97,7 +107,7 @@
         }
 
         var request = {
-            "name": name,
+            "name": name.toLowerCase(),
             "ingredients": ingredients
         };
 
