@@ -3,9 +3,11 @@ package bryony.applications.spring_recipe_application.RestControllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import bryony.applications.spring_recipe_application.POGOS.Recipe;
@@ -25,6 +27,11 @@ public class WebController {
     @RequestMapping(method = RequestMethod.GET, value="/getAllRecipes", produces="application/json")
     public List<Recipe> getAllRecipes() {
         return recipeServiceImpl.getAllRecipes(); 
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value="/getRecipe{name}", produces="application/json") 
+    public List<Recipe> getRecipeByName(@PathVariable String name) {
+        return recipeServiceImpl.getRecipesByName(name); 
     }
 
    

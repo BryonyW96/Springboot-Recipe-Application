@@ -25,6 +25,7 @@
         <label>Ingredients: </label>
         <input type="text" id="ingredients" name="ingredients">
         <button class="buttons" id="AddIngredientButton" onclick="displayIngredients()">Add</button><br><br>
+        <button class="buttons" onclick="sendRequest()">Save</button>
     </div>
 
 
@@ -33,13 +34,20 @@
         <ul id="ingredientList"></ul>
     </div>
 
-    <button class="buttons" onclick="sendRequest()">submit</button>
-    <button class="buttons" onclick="getAllRecipesRequest()">Get All Recipes</button>
+  
+    
+
+    <div class="search-bar" id="recipe-search-container">
+        <label>Search for a Recipe</label>
+        <input id="search-bar" type="text" placeholder="Search..">
+        <button class="buttons" id="search-button" onclick="searchForRecipesRequest()">Get Results</button>
+        <button class="buttons" onclick="getAllRecipesRequest()">Get All Recipes</button>
+        <p id="result"></p>
+    </div>
 
 </body>
 
 <script>
-
 
     //function to create div content for created recipe
     function getRecipeName() {
@@ -96,6 +104,7 @@
         apiRequest(JSON.stringify(request));
     }
 
+
     //async function to return all recipes
 
     async function getAllRecipesRequest() {
@@ -106,6 +115,25 @@
             }
         });
     }
+
+
+    async function searchForRecipesRequest() { 
+
+        const name = document.getElementById("search-bar").value;
+
+        const response = await fetch(`/getRecipe?name=${name}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+        
+        const data = await response.json();
+        
+        const recipeResult = document.getElementById("result");
+        recipeResult.innerHTML = data[0].name + ": " + data[0].ingredients; 
+        
+    } 
 
 </script>
 

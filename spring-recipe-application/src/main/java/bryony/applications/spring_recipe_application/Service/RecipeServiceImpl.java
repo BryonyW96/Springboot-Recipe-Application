@@ -17,12 +17,21 @@ public class RecipeServiceImpl implements RecipeService {
     @Override
     public List<Recipe> getAllRecipes() {
         return recipeRepository.findAll();
+    } 
+    
+    @Override
+    public List<Recipe> getRecipesByName(String name) {
+        return recipeRepository.findByNameLike(name);
     }
 
     @Override
     public void save(Recipe recipe) {
         recipeRepository.save(recipe);
     }
+
+   
+
+
 
 
 
