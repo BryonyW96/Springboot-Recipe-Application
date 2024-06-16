@@ -43,7 +43,7 @@
     <div class="search-bar" id="recipe-search-container">
         <label>Search for a Recipe</label>
         <input id="search-bar" type="text" placeholder="Search..">
-        <button class="buttons" id="search-button" onclick="searchForRecipesRequest()">Get Results</button>
+        <button class="buttons" id="search-button" onclick="sendSearchRequest()">Get Results</button>
         <button class="buttons" onclick="getAllRecipesRequest()">Get All Recipes</button>
         <p id="result"></p>
     </div>
@@ -95,6 +95,11 @@
 
     }
 
+    function sendSearchRequest() {
+        const name = document.getElementById("search-bar").value;
+        searchForRecipesRequest(name);
+    }
+
     function sendRequest() {
 
         var name = document.getElementById("createdRecipeName").innerHTML;
@@ -127,11 +132,9 @@
     }
 
 
-    async function searchForRecipesRequest() { 
+    async function searchForRecipesRequest(name) { 
 
-        const name = document.getElementById("search-bar").value;
-
-        const response = await fetch(`/getRecipe?name=${name}`, {
+        const response = await fetch("/getRecipe?name=" + name, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"
@@ -140,8 +143,9 @@
         
         const data = await response.json();
         
-        const recipeResult = document.getElementById("result");
-        recipeResult.innerHTML = data[0].name + ": " + data[0].ingredients; 
+        
+        // const recipeResult = document.getElementById("result");
+        // recipeResult.innerHTML = data[0].name + ": " + data[0].ingredients; 
         
     } 
 

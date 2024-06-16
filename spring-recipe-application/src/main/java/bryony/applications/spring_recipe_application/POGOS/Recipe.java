@@ -2,6 +2,7 @@ package bryony.applications.spring_recipe_application.POGOS;
 
 import java.util.Arrays;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,7 +16,9 @@ public class Recipe {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @Column(name = "name")
     private String name; 
+    @Column(name = "ingredients")
     private String[] ingredients;
 
     public Recipe() {

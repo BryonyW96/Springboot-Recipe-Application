@@ -1,7 +1,9 @@
 package bryony.applications.spring_recipe_application.Service;
 
 import java.util.List;
+import java.util.Optional;
 
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,14 +21,17 @@ public class RecipeServiceImpl implements RecipeService {
         return recipeRepository.findAll();
     } 
     
-    @Override
-    public List<Recipe> getRecipesByName(String name) {
-        return recipeRepository.findByNameLike(name);
-    }
 
     @Override
     public void save(Recipe recipe) {
         recipeRepository.save(recipe);
+    }
+
+
+    @Override
+    public List<Recipe> getRecipesByName(String name) {
+    return recipeRepository.findByNameLike(name);
+
     }
 
    
