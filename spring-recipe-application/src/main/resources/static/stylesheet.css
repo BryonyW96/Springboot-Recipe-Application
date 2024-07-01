@@ -3,14 +3,65 @@ body {
     font-family: "Dosis", sans-serif;
     font-optical-sizing: auto;
     color: rgb(110, 119, 120);
+    text-transform: capitalize;
+}
+
+.applicationName {
+    text-align: center;
+    background-color: rgb(252, 252, 252);
+    padding: 20px;
+    border-radius: 15px;
 }
 
 .buttons {
     font-family: "Dosis", sans-serif;
+    border-radius: 5px;
+    border-color: rgb(75, 51, 71);
+    border-style:solid;
+    padding: 10px;
+    color: rgb(95, 91, 93);
+    font-weight: bold;
+}
+
+#create-recipe-button {
+    width: 150px;
+    height: 50px;
+    position: absolute;
+    top: 120px;
+    left: 20px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.search-recipe-container {
+    display: flex;
+    height: 50px;
+    column-gap: 5px;
+    position: absolute;
+    left: 1000px;
+    top: 120px;
+}
+
+#search-recipe-bar {
+  width: 300px;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+
+#add-recipe-container {
+   margin: auto;
+   width: 50%;
 }
 
 #created-recipe-container {
-    text-transform: capitalize;
+    width: 300px;
+    height: 350px;
+    border: 15px solid rgb(240, 240, 240);
+    background-color: rgb(237, 179, 209);
+    padding: 50px;
+    position: absolute;
+    margin: 20px 0 0 500px;
 }
 
 

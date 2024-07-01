@@ -16,41 +16,66 @@
 
 <body>
 
-    <h1>Recipe Application prototype</h1>
-    <div id="add-recipe-container">
+    <h1 class="applicationName">Recipe Application prototype</h1>
+
+    <div id="create-recipe-container">
+        <button class="buttons" id="create-recipe-button" onclick="createRecipe(this.innerHTML)">Create Recipe</button>
+    </div>
+
+    <div id="add-recipe-container" style="display: none;">
         <h2>Add Recipe</h2>
         <label>Name of Recipe: </label>
         <input type="text" id="recipeName" onfocus="this.value=''" name="recipeName">
         <button class="buttons" id="addRecipeButton" onclick="getRecipeName()">Add</button><br><br>
         <label>Ingredients: </label>
-        <input type="text" id="ingredients" name="ingredients">
+        <input type="text" id="ingredients" onfocus="this.value=''" name="ingredients">
         <button class="buttons" id="AddIngredientButton" onclick="displayIngredients()">Add</button><br><br>
         <button class="buttons" onclick="sendRequest()">Save</button>
         <button class="buttons" onclick="clearRecipe()">Clear</button>
     </div>
 
-  
-
-
-    <div id="created-recipe-container">
+    <div id="created-recipe-container" style="display: none;">
         <h3 id="createdRecipeName"></h3>
         <ul id="ingredientList"></ul>
     </div>
 
-  <br>
-    
 
-    <div class="search-bar" id="recipe-search-container">
-        <label>Search for a Recipe</label>
-        <input id="search-bar" type="text" placeholder="Search..">
-        <button class="buttons" id="search-button" onclick="sendSearchRequest()">Get Results</button>
-        <button class="buttons" onclick="getAllRecipesRequest()">Get All Recipes</button>
+    <div class="search-recipe-container" id="recipe-search-container">
+        <input id="search-recipe-bar" type="text" placeholder="Search...">
+        <button class="buttons" id="search-button" onclick="sendSearchRequest()">Find Recipe</button>
+        <button class="buttons" onclick="getAllRecipesRequest()">Find All Recipes</button>
         <p id="result"></p>
     </div>
-
 </body>
 
 <script>
+
+    function createRecipe(condition) {
+
+        const ADD_RECIPE_CONTAINER = document.getElementById("add-recipe-container");
+        const CREATED_RECIPE_CONTAINER = document.getElementById("created-recipe-container");
+        const BUTTON = document.getElementById("create-recipe-button");
+
+        switch (condition) {
+
+            case "Create Recipe":
+                
+                ADD_RECIPE_CONTAINER.style.display = "flex";
+                CREATED_RECIPE_CONTAINER.style.display = "block";
+                BUTTON.innerHTML = "Cancel";
+
+                break;
+
+            case "Cancel":
+
+                ADD_RECIPE_CONTAINER.style.display = "none";
+                CREATED_RECIPE_CONTAINER.style.display = "none";
+                BUTTON.innerHTML = "Create Recipe";
+
+                break;
+        }
+
+    }
 
     //function to create div content for created recipe
     function getRecipeName() {
@@ -75,11 +100,11 @@
     }
 
     function clearRecipe() {
-        const recipeName = document.getElementById("createdRecipeName"); 
-        const ingredientList = document.getElementById("ingredientList"); 
+        const recipeName = document.getElementById("createdRecipeName");
+        const ingredientList = document.getElementById("ingredientList");
 
-        recipeName.remove();
-        ingredientList.remove();
+        recipeName.innerHTML = "";
+        ingredientList.innerHTML = "";
     }
 
     //async function to send user recipe to db and store
@@ -132,7 +157,7 @@
     }
 
 
-    async function searchForRecipesRequest(name) { 
+    async function searchForRecipesRequest(name) {
 
         const response = await fetch("/getRecipe?name=" + name, {
             method: "GET",
@@ -140,14 +165,14 @@
                 "Content-Type": "application/json"
             }
         });
-        
+
         const data = await response.json();
-        
-        
-        // const recipeResult = document.getElementById("result");
-        // recipeResult.innerHTML = data[0].name + ": " + data[0].ingredients; 
-        
-    } 
+
+
+        const recipeResult = document.getElementById("result");
+        recipeResult.innerHTML = data[0].name + ": " + data[0].ingredients;
+
+    }
 
 </script>
 
