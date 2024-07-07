@@ -26,42 +26,61 @@ body {
 #create-recipe-button {
     width: 150px;
     height: 50px;
-    position: absolute;
-    top: 120px;
-    left: 20px;
+    position: relative;
+    bottom: 0vw;
+    left: 0.5vw;
     font-size: 20px;
     font-weight: bold;
 }
 
 .search-recipe-container {
+    width: 550px;
+    margin: auto 0;
     display: flex;
     height: 50px;
     column-gap: 5px;
-    position: absolute;
-    left: 1000px;
-    top: 120px;
+    position: fixed;
+    bottom: 560px;
+    left: 970px;
 }
 
 #search-recipe-bar {
-  width: 300px;
+  width: 5000px;
   border-radius: 5px;
   padding: 10px;
+  position: relative;
 }
 
 
 #add-recipe-container {
    margin: auto;
    width: 50%;
+   position: relative;
+   right: 370px;
+   top: 30px;
+   font-weight: bolder;
 }
 
-#created-recipe-container {
+#add-recipe-inputs {
+    display: flex;
+    position: relative;
+}
+
+.add-recipe-elems{
+    padding: 5px;
+}
+
+.created-recipe-container {
     width: 300px;
-    height: 350px;
+    height: 300px;
     border: 15px solid rgb(240, 240, 240);
     background-color: rgb(237, 179, 209);
     padding: 50px;
-    position: absolute;
-    margin: 20px 0 0 500px;
+    position: relative;
+    margin: auto;
+    top: 65px;
+    right: 370px;
+    flex-direction: column;
 }
 
 

@@ -23,29 +23,32 @@
     </div>
 
     <div id="add-recipe-container" style="display: none;">
-        <h2>Add Recipe</h2>
-        <label>Name of Recipe: </label>
-        <input type="text" id="recipeName" onfocus="this.value=''" name="recipeName">
-        <button class="buttons" id="addRecipeButton" onclick="getRecipeName()">Add</button><br><br>
-        <label>Ingredients: </label>
-        <input type="text" id="ingredients" onfocus="this.value=''" name="ingredients">
-        <button class="buttons" id="AddIngredientButton" onclick="displayIngredients()">Add</button><br><br>
-        <button class="buttons" onclick="sendRequest()">Save</button>
-        <button class="buttons" onclick="clearRecipe()">Clear</button>
+        <div id="add-recipe-inputs">
+            <label class="add-recipe-elems">Name of Recipe: </label>
+            <input class="add-recipe-elems" type="text" id="recipeName" onfocus="this.value=''" name="recipeName">
+            <button class="buttons" id="addRecipeButton" onclick="getRecipeName()">Add</button><br><br>
+            <label class="add-recipe-elems">Ingredients: </label>
+            <input class="add-recipe-elems" type="text" id="ingredients" onfocus="this.value=''" name="ingredients">
+            <button class="buttons" id="AddIngredientButton" onclick="displayIngredients()">Add</button>
+            <button class="buttons" onclick="sendRequest()">Save</button>
+            <button class="buttons" onclick="clearRecipe()">Clear</button>
+        </div>
     </div>
 
-    <div id="created-recipe-container" style="display: none;">
+    <div class="created-recipe-container" id="created-recipe-container" style="display: none;">
         <h3 id="createdRecipeName"></h3>
         <ul id="ingredientList"></ul>
+
     </div>
 
 
     <div class="search-recipe-container" id="recipe-search-container">
         <input id="search-recipe-bar" type="text" placeholder="Search...">
+        <p id="result"></p>
         <button class="buttons" id="search-button" onclick="sendSearchRequest()">Find Recipe</button>
         <button class="buttons" onclick="getAllRecipesRequest()">Find All Recipes</button>
-        <p id="result"></p>
     </div>
+
 </body>
 
 <script>
@@ -59,8 +62,8 @@
         switch (condition) {
 
             case "Create Recipe":
-                
-                ADD_RECIPE_CONTAINER.style.display = "flex";
+
+                ADD_RECIPE_CONTAINER.style.display = "block";
                 CREATED_RECIPE_CONTAINER.style.display = "block";
                 BUTTON.innerHTML = "Cancel";
 
